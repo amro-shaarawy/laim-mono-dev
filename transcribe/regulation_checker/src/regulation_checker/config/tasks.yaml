@@ -1,0 +1,138 @@
+compliance_analysis_task:
+  description: >
+    Perform comprehensive compliance analysis of transcript segment: {transcript_segment}
+    
+    Execute multi-layered analysis approach:
+    
+    PHASE 1 - PRELIMINARY SCREENING:
+    - Scan for obvious compliance red flags using built-in patterns
+    - Check for violation keywords: bribe, kickback, insider trading, harassment,
+      discrimination, safety violations, confidentiality breaches, manipulation
+    - Assess if segment is routine business communication or potential violation
+    - If clearly safe, skip intensive analysis and return SAFE verdict
+    
+    PHASE 2 - DETAILED ANALYSIS (only if Phase 1 flags concerns):
+    - Query JSON knowledge base for specific regulatory/policy matches
+    - If knowledge base empty/unavailable, apply built-in compliance intelligence:
+      * SEC violations (insider trading, market manipulation, disclosure)
+      * GDPR/Privacy (unauthorized data sharing, consent violations)
+      * Anti-bribery/FCPA (corrupt practices, improper payments)
+      * Workplace violations (harassment, discrimination, safety)
+      * Financial crimes (money laundering, fraud indicators)
+      * Confidentiality breaches (trade secrets, NDA violations)
+    
+    PHASE 3 - REGULATORY FRAMEWORK MAPPING:
+    - Match detected violations to applicable regulations:
+      * SOX (financial reporting, internal controls)
+      * GDPR/CCPA (data privacy and protection)
+      * FCPA (foreign corrupt practices)
+      * OSHA (workplace safety standards)
+      * FINRA (financial industry conduct)
+      * SEC regulations (securities and disclosure)
+      * Employment law (anti-discrimination, harassment)
+    
+    PHASE 4 - POLICY VIOLATION ASSESSMENT:
+    - Evaluate against standard corporate policies:
+      * Code of conduct and ethics
+      * Information security and data handling
+      * Anti-harassment and discrimination policies
+      * Conflict of interest guidelines
+      * Communication and confidentiality standards
+      * Trading and investment restrictions
+    
+    PHASE 5 - RISK CLASSIFICATION:
+    - Determine overall risk level based on:
+      * Violation severity and legal exposure
+      * Reputational damage potential
+      * Financial impact likelihood
+      * Regulatory enforcement probability
+      * Business context and intent assessment
+  
+  expected_output: >
+    Comprehensive compliance analysis containing:
+    - ANALYSIS_VERDICT: SAFE or VIOLATION
+    - ANALYSIS_METHOD: PRELIMINARY_SCREENING_ONLY or FULL_ANALYSIS_COMPLETED
+    - KNOWLEDGE_BASE_STATUS: AVAILABLE/EMPTY/ERROR
+    - CONFIDENCE_LEVEL: 1-100%
+    - VIOLATION_TYPE: (if applicable - e.g., "Financial Misconduct", "Privacy Violation")
+    - REGULATORY_FRAMEWORKS: List of applicable regulations
+    - POLICY_VIOLATIONS: Internal policies breached
+    - RISK_SEVERITY: LOW/MEDIUM/HIGH/CRITICAL
+    - EVIDENCE_SUMMARY: Key factors supporting the determination
+    - IMMEDIATE_CONCERNS: Urgent issues requiring attention
+    - RECOMMENDED_ACTIONS: Specific steps to address violations
+  agent: compliance_analyst
+
+compliance_reporting_task:
+  description: >
+    Generate final compliance report based on analysis results from compliance_analyst.
+    
+    Synthesize the compliance analysis findings for transcript segment: {transcript_segment}
+    and create executive-level compliance decision with clear actionable guidance.
+    
+    REPORT STRUCTURE:
+    - Executive summary of compliance status
+    - Risk assessment and classification
+    - Specific violations identified (if any)
+    - Regulatory and policy implications
+    - Required immediate actions
+    - Escalation requirements
+    - Monitoring and follow-up procedures
+    - Alert level determination
+    
+    DECISION LOGIC:
+    For SAFE determinations:
+    - Confirm no violations detected
+    - Document analysis methodology used
+    - Set appropriate monitoring level
+    - Provide brief rationale for safety classification
+    
+    For VIOLATION determinations:
+    - Detail specific compliance concerns identified
+    - List regulatory/policy citations and frameworks
+    - Outline mandatory immediate response actions
+    - Specify required escalation procedures and stakeholders
+    - Establish monitoring and remediation requirements
+    - Determine alert level and notification protocols
+    
+    ESCALATION MATRIX:
+    - ROUTINE: No violations, standard monitoring
+    - PRIORITY: Minor concerns, enhanced monitoring recommended
+    - URGENT: Clear violations, immediate management review required
+    - EMERGENCY: Critical violations, legal/regulatory exposure, immediate escalation
+  
+  expected_output: >
+    Final compliance report:
+    - FINAL_VERDICT: SAFE or VIOLATION
+    - EXECUTIVE_SUMMARY: High-level compliance status and key findings
+    - ANALYSIS_CONFIDENCE: Overall confidence in determination (1-100%)
+    - VIOLATION_DETAILS: Specific violations and supporting evidence (if any)
+    - REGULATORY_CITATIONS: Applicable laws, regulations, and policies
+    - RISK_CLASSIFICATION: Overall risk level (LOW/MEDIUM/HIGH/CRITICAL)
+    - URGENCY_LEVEL: Response urgency (ROUTINE/PRIORITY/URGENT/EMERGENCY)
+    - IMMEDIATE_ACTIONS: Required immediate response steps
+    - RESPONSIBLE_PARTIES: Who needs to be notified/take action
+    - ESCALATION_PATH: Management/legal/compliance escalation requirements
+    - MONITORING_REQUIREMENTS: Ongoing monitoring and follow-up needed
+    - ALERT_LEVEL: System alert classification
+    - DOCUMENTATION_REQUIREMENTS: Records that must be maintained
+    - FOLLOW_UP_TIMELINE: When and how to review/monitor situation
+  agent: compliance_reporter
+compliance_analysis_task:
+  description: >
+    Analyze the following transcript segment for any potential compliance violations
+    based on the provided knowledge base: {transcript_segment}.
+    Focus on identifying specific phrases or statements that might indicate a breach of policy or regulation.
+  expected_output: >
+    A list of potential compliance violations found in the text, with a brief explanation for each.
+    If no violations are found, state that clearly.
+  agent: compliance_analyst
+
+compliance_reporting_task:
+  description: >
+    Review the analysis of the transcript segment and create a comprehensive compliance report.
+    The report should summarize the findings, detail any violations, and suggest a risk level.
+  expected_output: >
+    A well-structured compliance report in markdown format. It should include an executive summary,
+    a list of findings, and a final compliance assessment.
+  agent: compliance_reporter
